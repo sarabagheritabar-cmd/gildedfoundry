@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gilded Foundry | Custom Metal Casting & Art Fabrication</title>
+  <meta name="description" content="Gilded Foundry specializes in custom metal casting, bespoke art installations, architectural metalwork, and restoration projects in New York.">
+  <meta name="author" content="Gilded Foundry">
+  <link rel="icon" href="favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: rgb(38, 216, 103);
+      --primary-light-color: rgb(132, 224, 166);
+      --primary-dark-color: rgb(26, 151, 72);
+      --secondary-warm-color: rgb(220, 180, 140);
+      --accent-color: rgb(220, 59, 161);
+      --hero-bg-color: rgb(26, 26, 46);
+      --text-light-color: rgb(255, 255, 255);
+      --text-dark-color: rgb(33, 37, 41);
+      --border-radius: 12px;
+      --section-spacing: 3rem;
+      --hover-effect: translateY(-8px);
+      --default-transition: transform 0.3s ease-in-out;
+    }
+
+    body {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      color: var(--text-dark-color);
+      background-color: var(--text-light-color); /* Ensures contrast */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      color: var(--hero-bg-color); /* Darker for headings */
+    }
+
+    .btn-primary-gradient {
+      background: linear-gradient(45deg, var(--primary-dark-color), var(--primary-color), var(--primary-light-color));
+      border: none;
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.75rem;
+      transition: var(--default-transition);
+    }
+
+    .btn-primary-gradient:hover {
+      transform: var(--hover-effect);
+      opacity: 0.9;
+      color: var(--text-light-color);
+    }
+
+    .btn-outline-light {
+      border: 2px solid var(--text-light-color);
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.75rem;
+      transition: var(--default-transition);
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: var(--hover-effect);
+      color: var(--text-light-color);
+    }
+
+    .navbar-brand, .nav-link {
+      color: var(--hero-bg-color) !important;
+      font-weight: 700;
+    }
+    .navbar-brand:hover, .nav-link:hover {
+      color: var(--primary-dark-color) !important;
+    }
+
+    .sticky-top {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1030;
+    }
+
+    section {
+      padding: var(--section-spacing) 0;
+      position: relative;
+    }
+
+    .card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--default-transition);
+    }
+
+    .card:hover {
+      transform: var(--hover-effect);
+    }
+
+    .card-gradient-bg {
+      background: linear-gradient(135deg, var(--primary-light-color), var(--primary-color));
+      color: var(--text-light-color);
+    }
+
+    .card-gradient-bg h3, .card-gradient-bg p {
+      color: var(--text-light-color);
+    }
+
+    .icon-container {
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      fill: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+    .icon-container svg {
+      width: 32px;
+      height: 32px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    #hero {
+      background-color: var(--hero-bg-color);
+      color: var(--text-light-color);
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: var(--hero-bg-color);
+      clip-path: ellipse(150% 100% at 50% 100%);
+      transform: translateY(50%);
+      z-index: 1; /* Ensure it's above other content but below hero content */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .process-step {
+      position: relative;
+    }
+
+    .process-step::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    /* Connector lines for process steps */
+    .process-steps-container {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .process-steps-container .row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .process-steps-container .col-md-4:nth-child(even) .process-step-content {
+        order: -1; /* For alternating image/text */
+      }
+      .process-steps-container .col-md-4:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+        left: calc(100% - 1.5rem); /* Adjust as needed */
+        width: 3rem; /* Length of the connecting line */
+        height: 2px;
+        background-color: var(--accent-color);
+        z-index: 0;
+        transform: translateY(-50%);
+      }
+      .process-steps-container .col-md-4:nth-child(odd):not(:last-child)::after {
+        clip-path: path("M0 0 C 30 0, 30 15, 60 15"); /* Example of a curving line */
+        height: 30px; /* Adjust height for curve */
+        top: calc(25% - 15px);
+        left: calc(100% - 3rem);
+      }
+      .process-steps-container .col-md-4:nth-child(even):not(:last-child)::after {
+        clip-path: path("M0 15 C 30 15, 30 0, 60 0"); /* Reverse curve */
+        height: 30px; /* Adjust height for curve */
+        top: calc(25% - 15px);
+        left: calc(100% - 3rem);
+      }
+    }
+
+    .process-diagram-image {
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--default-transition);
+    }
+
+    .portfolio-item:hover {
+      transform: var(--hover-effect);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      color: var(--text-light-color);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .carousel-item {
+      background-color: var(--primary-light-color);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      color: var(--text-light-color);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      padding: 1.5rem;
+    }
+
+    #contact .form-card {
+      background: linear-gradient(135deg, var(--secondary-warm-color), var(--accent-color));
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+    }
+
+    #contact .form-card .form-control,
+    #contact .form-card .form-select {
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-light-color);
+      margin-bottom: 1rem;
+    }
+    #contact .form-card .form-control::placeholder,
+    #contact .form-card .form-select {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    #contact .form-card .form-control:focus,
+    #contact .form-card .form-select:focus {
+      border-color: var(--text-light-color);
+      box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #contact .contact-info-block {
+      background-color: var(--hero-bg-color); /* Dark background */
+      color: var(--text-light-color);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #contact .contact-info-block::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(40px);
+    }
+
+    #contact .contact-info-block::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(30px);
+    }
+
+    footer {
+      background-color: var(--text-dark-color); /* Dark contrasting background */
+      color: var(--text-light-color);
+      padding: var(--section-spacing) 0 1rem 0;
+      position: relative;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px; /* Adjust height for the curve */
+      background: var(--text-dark-color);
+      clip-path: ellipse(150% 100% at 50% 0%); /* Organic curving top border */
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    footer .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--hero-bg-color);
+        color: var(--text-light-color);
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10000;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        flex-wrap: wrap;
+    }
+    .cookie-consent p {
+        margin-bottom: 0;
+        flex-grow: 1;
+        padding-right: 1rem;
+    }
+    .cookie-consent button {
+        background-color: var(--primary-color);
+        color: var(--text-light-color);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .cookie-consent button:hover {
+        background-color: var(--primary-dark-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Gilded Foundry</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#process">Process</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-primary-gradient" href="#contact">Get a Quote</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<main>
+<style>
+  #terms-and-conditions-section {
+    padding-top: 7rem;
+  }
+</style>
+<section id="terms-and-conditions-section">
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; color: #2c3e50;">Terms and Conditions</h2>
+
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">Welcome to Gilded Foundry! These Terms and Conditions govern your use of our online platform and the services we offer in metal casting and art fabrication. By accessing or using our online platform, you agree to be bound by these Terms and Conditions and our Privacy Policy. If you disagree with any part of these terms, please do not use our services.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">1. Services Overview</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">Gilded Foundry specializes in custom metal casting, bespoke art installations, architectural metalwork, restoration projects, and design consultations. Our online platform serves to showcase these services and facilitate initial inquiries. All detailed project agreements, specifications, and timelines will be established through separate, written contracts.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">2. Intellectual Property Rights</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">All content displayed on our online platform, including but not limited to text, graphics, logos, images, design portfolios, and service descriptions, is the exclusive property of Gilded Foundry or its content suppliers and protected by international copyright laws. You may not reproduce, distribute, modify, display, or create derivative works of any content without prior written permission from Gilded Foundry.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">3. Use of Our Online Platform</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">You agree to use our online platform only for lawful purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of our online platform. Prohibited behavior includes harassing or causing distress or inconvenience to any other user, transmitting obscene or offensive content, or disrupting the normal flow of dialogue within our online platform.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">4. Project Consultations and Engagements</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">Any design consultations or project engagements initiated through our online platform will be subject to a separate, detailed service agreement. Our online platform provides preliminary information and is not an offer to contract. All project specifics, including pricing, materials, timelines, and intellectual property arrangements for custom work, will be finalized in a written contract signed by both parties.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">5. Limitation of Liability</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">To the fullest extent permitted by applicable law, Gilded Foundry shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from (a) your access to or use of or inability to access or use the services; (b) any conduct or content of any third party on the services; or (c) unauthorized access, use or alteration of your transmissions or content.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">6. Governing Law</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">These Terms and Conditions shall be governed and construed in accordance with the laws of the State of New York, United States, without regard to its conflict of law provisions. You agree to submit to the personal and exclusive jurisdiction of the state and federal courts located in New York, New York for the purpose of litigating any such claims or disputes.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">7. Changes to Terms</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">We reserve the right, at our sole discretion, to modify or replace these Terms and Conditions at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our online platform after those revisions become effective, you agree to be bound by the revised terms.</p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">8. Contact Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">If you have any questions about these Terms and Conditions, please contact us at:</p>
+    <address style="font-style: normal; font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">
+        Gilded Foundry<br>
+        71-26 69th Street<br>
+        New York, New York, 11385<br>
+        USA
+    </address>
+</section>
+</main>
+<footer>
+    <div class="container text-center">
+      <p class="mb-2">&copy; 2024 Gilded Foundry. All rights reserved.</p>
+      <p class="mb-4">Gilded Foundry - Metal Casting & Art Fabrication</p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="./privacy.html" class="text-decoration-none" style="color: var(--primary-light-color);">Privacy Policy</a>
+        <a href="./tos.html" class="text-decoration-none" style="color: var(--primary-light-color);">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookieConsent" class="cookie-consent" style="display:none;">
+    <p>This website uses cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
+    <button id="acceptCookies">Accept</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cookieConsent = document.getElementById('cookieConsent');
+      const acceptCookies = document.getElementById('acceptCookies');
+      const cookieNamePrefix = 'consent_';
+      const randomSuffix = Math.random().toString(36).substring(2, 15);
+      const fullCookieName = cookieNamePrefix + randomSuffix;
+
+      // Check if cookie consent has been given
+      if (!localStorage.getItem(fullCookieName)) {
+        cookieConsent.style.display = 'flex';
+      }
+
+      acceptCookies.addEventListener('click', function() {
+        localStorage.setItem(fullCookieName, 'true');
+        cookieConsent.style.display = 'none';
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              e.preventDefault();
+              document.querySelector(this.getAttribute('href')).scrollIntoView({
+                  behavior: 'smooth'
+              });
+          });
+      });
+    });
+  </script>
+</body>
+</html>

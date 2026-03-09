@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gilded Foundry | Custom Metal Casting & Art Fabrication</title>
+  <meta name="description" content="Gilded Foundry specializes in custom metal casting, bespoke art installations, architectural metalwork, and restoration projects in New York.">
+  <meta name="author" content="Gilded Foundry">
+  <link rel="icon" href="favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: rgb(38, 216, 103);
+      --primary-light-color: rgb(132, 224, 166);
+      --primary-dark-color: rgb(26, 151, 72);
+      --secondary-warm-color: rgb(220, 180, 140);
+      --accent-color: rgb(220, 59, 161);
+      --hero-bg-color: rgb(26, 26, 46);
+      --text-light-color: rgb(255, 255, 255);
+      --text-dark-color: rgb(33, 37, 41);
+      --border-radius: 12px;
+      --section-spacing: 3rem;
+      --hover-effect: translateY(-8px);
+      --default-transition: transform 0.3s ease-in-out;
+    }
+
+    body {
+      font-family: 'Merriweather', serif;
+      font-weight: 400;
+      color: var(--text-dark-color);
+      background-color: var(--text-light-color); /* Ensures contrast */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      color: var(--hero-bg-color); /* Darker for headings */
+    }
+
+    .btn-primary-gradient {
+      background: linear-gradient(45deg, var(--primary-dark-color), var(--primary-color), var(--primary-light-color));
+      border: none;
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.75rem;
+      transition: var(--default-transition);
+    }
+
+    .btn-primary-gradient:hover {
+      transform: var(--hover-effect);
+      opacity: 0.9;
+      color: var(--text-light-color);
+    }
+
+    .btn-outline-light {
+      border: 2px solid var(--text-light-color);
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 0.75rem 1.75rem;
+      transition: var(--default-transition);
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: var(--hover-effect);
+      color: var(--text-light-color);
+    }
+
+    .navbar-brand, .nav-link {
+      color: var(--hero-bg-color) !important;
+      font-weight: 700;
+    }
+    .navbar-brand:hover, .nav-link:hover {
+      color: var(--primary-dark-color) !important;
+    }
+
+    .sticky-top {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      z-index: 1030;
+    }
+
+    section {
+      padding: var(--section-spacing) 0;
+      position: relative;
+    }
+
+    .card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--default-transition);
+    }
+
+    .card:hover {
+      transform: var(--hover-effect);
+    }
+
+    .card-gradient-bg {
+      background: linear-gradient(135deg, var(--primary-light-color), var(--primary-color));
+      color: var(--text-light-color);
+    }
+
+    .card-gradient-bg h3, .card-gradient-bg p {
+      color: var(--text-light-color);
+    }
+
+    .icon-container {
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      fill: none;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+    .icon-container svg {
+      width: 32px;
+      height: 32px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    #hero {
+      background-color: var(--hero-bg-color);
+      color: var(--text-light-color);
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: var(--hero-bg-color);
+      clip-path: ellipse(150% 100% at 50% 100%);
+      transform: translateY(50%);
+      z-index: 1; /* Ensure it's above other content but below hero content */
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .process-step {
+      position: relative;
+    }
+
+    .process-step::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: calc(50% - 10px);
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    /* Connector lines for process steps */
+    .process-steps-container {
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .process-steps-container .row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 768px) {
+      .process-steps-container .col-md-4:nth-child(even) .process-step-content {
+        order: -1; /* For alternating image/text */
+      }
+      .process-steps-container .col-md-4:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 25%;
+        left: calc(100% - 1.5rem); /* Adjust as needed */
+        width: 3rem; /* Length of the connecting line */
+        height: 2px;
+        background-color: var(--accent-color);
+        z-index: 0;
+        transform: translateY(-50%);
+      }
+      .process-steps-container .col-md-4:nth-child(odd):not(:last-child)::after {
+        clip-path: path("M0 0 C 30 0, 30 15, 60 15"); /* Example of a curving line */
+        height: 30px; /* Adjust height for curve */
+        top: calc(25% - 15px);
+        left: calc(100% - 3rem);
+      }
+      .process-steps-container .col-md-4:nth-child(even):not(:last-child)::after {
+        clip-path: path("M0 15 C 30 15, 30 0, 60 0"); /* Reverse curve */
+        height: 30px; /* Adjust height for curve */
+        top: calc(25% - 15px);
+        left: calc(100% - 3rem);
+      }
+    }
+
+    .process-diagram-image {
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--default-transition);
+    }
+
+    .portfolio-item:hover {
+      transform: var(--hover-effect);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      color: var(--text-light-color);
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .carousel-item {
+      background-color: var(--primary-light-color);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      color: var(--text-light-color);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      padding: 1.5rem;
+    }
+
+    #contact .form-card {
+      background: linear-gradient(135deg, var(--secondary-warm-color), var(--accent-color));
+      color: var(--text-light-color);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+    }
+
+    #contact .form-card .form-control,
+    #contact .form-card .form-select {
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-light-color);
+      margin-bottom: 1rem;
+    }
+    #contact .form-card .form-control::placeholder,
+    #contact .form-card .form-select {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    #contact .form-card .form-control:focus,
+    #contact .form-card .form-select:focus {
+      border-color: var(--text-light-color);
+      box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    #contact .contact-info-block {
+      background-color: var(--hero-bg-color); /* Dark background */
+      color: var(--text-light-color);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #contact .contact-info-block::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(40px);
+    }
+
+    #contact .contact-info-block::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      opacity: 0.1;
+      filter: blur(30px);
+    }
+
+    footer {
+      background-color: var(--text-dark-color); /* Dark contrasting background */
+      color: var(--text-light-color);
+      padding: var(--section-spacing) 0 1rem 0;
+      position: relative;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px; /* Adjust height for the curve */
+      background: var(--text-dark-color);
+      clip-path: ellipse(150% 100% at 50% 0%); /* Organic curving top border */
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    footer .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--hero-bg-color);
+        color: var(--text-light-color);
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10000;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        flex-wrap: wrap;
+    }
+    .cookie-consent p {
+        margin-bottom: 0;
+        flex-grow: 1;
+        padding-right: 1rem;
+    }
+    .cookie-consent button {
+        background-color: var(--primary-color);
+        color: var(--text-light-color);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .cookie-consent button:hover {
+        background-color: var(--primary-dark-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Gilded Foundry</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#process">Process</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-primary-gradient" href="#contact">Get a Quote</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<main>
+<style>
+  #privacy-policy-section {
+    padding-top: 7rem;
+  }
+</style>
+<section id="privacy-policy-section">
+    <h2 style="font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">Privacy Policy</h2>
+
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        This Privacy Policy describes how Gilded Foundry ("we," "us," or "our") collects, uses, and discloses your personal information when you visit or make use of our online platform and services for custom metal casting, bespoke art installations, architectural metalwork, restoration projects, and design consultations. We are committed to protecting your privacy and handling your data in an open and transparent manner, in compliance with applicable data protection laws.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">1. Information We Collect</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        We collect various types of information in connection with the services we provide, which may include personal data.
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Information You Provide Voluntarily:</strong> This includes contact details such as your name, email address, phone number, and physical address when you request a quote, submit an inquiry, place an order, or subscribe to our newsletters. It may also include project-specific details, designs, and specifications shared during consultations or project execution.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Automatically Collected Information:</strong> When you access our site, we may automatically collect certain information about your device, including your IP address, browser type, operating system, referring URLs, and how you interact with our site. This is typically done through cookies and similar tracking technologies to improve our site's functionality and user experience.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Information from Third Parties:</strong> In some cases, we may receive information about you from third-party services, such as analytics providers or business partners, which helps us to understand our audience and refine our services.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">2. How We Use Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        We use the information we collect for various purposes, including:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            To provide, operate, and maintain our services, including fulfilling custom casting orders and managing art fabrication projects.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            To communicate with you, respond to your inquiries, provide customer support, and send you project updates.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            To improve and personalize your experience on our site, understanding how users interact with our content and services.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            For marketing and promotional purposes, such as sending newsletters or information about our new services, with your consent where required.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            To comply with legal obligations, enforce our terms and conditions, and protect our rights, privacy, safety, or property, and/or that of our affiliates, you, or other third parties.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+             For internal analytics and research to enhance our service delivery and develop new offerings.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">3. Disclosure of Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        We may share your information with third parties in the following circumstances:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Service Providers:</strong> We engage trusted third-party service providers to perform functions on our behalf, such as website hosting, analytics, payment processing, or project logistics. These providers have access to personal information needed to perform their functions but are contractually bound to protect the information and not use it for other purposes.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency).
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of all or a portion of our assets, your personal information may be transferred to the acquiring entity.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>With Your Consent:</strong> We may share your information with other third parties when we have your explicit consent to do so.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">4. Data Security</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        We have implemented appropriate technical and organizational security measures designed to protect the security of any personal information we process. However, please remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">5. Your Data Protection Rights</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        Depending on your location and applicable laws, you may have the following rights regarding your personal data:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Access:</strong> You have the right to request a copy of the personal information we hold about you.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Rectification:</strong> You have the right to request that we correct any inaccurate or incomplete personal information we hold about you.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Erasure (Right to be Forgotten):</strong> You have the right to request that we delete your personal information, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Restrict Processing:</strong> You have the right to request that we restrict the processing of your personal information, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Object to Processing:</strong> You have the right to object to our processing of your personal information, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Data Portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Right to Withdraw Consent:</strong> Where we rely on your consent to process your personal information, you have the right to withdraw that consent at any time.
+        </li>
+    </ul>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        To exercise any of these rights, please contact us using the contact details provided below.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">6. Third-Party Links</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        Our site may contain links to other websites that are not operated by us. If you click on a third-party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">7. Children's Privacy</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        Our services are not intended for individuals under the age of 18. We do not knowingly collect personally identifiable information from anyone under 18. If you are a parent or guardian and you are aware that your child has provided us with personal data, please contact us. If we become aware that we have collected personal data from children without verification of parental consent, we take steps to remove that information from our servers.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">8. Changes to This Privacy Policy</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+         We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. We encourage you to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+    </p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">9. Contact Us</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem;">
+        If you have any questions or concerns about this Privacy Policy, our data practices, or wish to exercise your data protection rights, please contact us:
+    </p>
+    <ul style="list-style: none; padding-left: 0; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Company Name:</strong> Gilded Foundry
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.5rem;">
+            <strong>Address:</strong> 71-26 69th Street, New York, New York, 11385, USA
+        </li>
+    </ul>
+</section>
+</main>
+<footer>
+    <div class="container text-center">
+      <p class="mb-2">&copy; 2024 Gilded Foundry. All rights reserved.</p>
+      <p class="mb-4">Gilded Foundry - Metal Casting & Art Fabrication</p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="./privacy.html" class="text-decoration-none" style="color: var(--primary-light-color);">Privacy Policy</a>
+        <a href="./tos.html" class="text-decoration-none" style="color: var(--primary-light-color);">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="cookieConsent" class="cookie-consent" style="display:none;">
+    <p>This website uses cookies to ensure you get the best experience on our website. By continuing, you agree to our use of cookies.</p>
+    <button id="acceptCookies">Accept</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cookieConsent = document.getElementById('cookieConsent');
+      const acceptCookies = document.getElementById('acceptCookies');
+      const cookieNamePrefix = 'consent_';
+      const randomSuffix = Math.random().toString(36).substring(2, 15);
+      const fullCookieName = cookieNamePrefix + randomSuffix;
+
+      // Check if cookie consent has been given
+      if (!localStorage.getItem(fullCookieName)) {
+        cookieConsent.style.display = 'flex';
+      }
+
+      acceptCookies.addEventListener('click', function() {
+        localStorage.setItem(fullCookieName, 'true');
+        cookieConsent.style.display = 'none';
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              e.preventDefault();
+              document.querySelector(this.getAttribute('href')).scrollIntoView({
+                  behavior: 'smooth'
+              });
+          });
+      });
+    });
+  </script>
+</body>
+</html>
